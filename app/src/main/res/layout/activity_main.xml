@@ -6,35 +6,29 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <!-- 다크모드 & 설정 버튼 묶은 LinearLayout -->
-    <LinearLayout
-        android:id="@+id/top_buttons_layout"
-        android:layout_width="0dp"
+    <!-- 다크모드 버튼 (왼쪽) -->
+    <ImageButton
+        android:id="@+id/dark_mode_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="25dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_darkmode"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="60dp">
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- 다크모드 버튼 -->
-        <ImageButton
-            android:id="@+id/dark_mode_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_darkmode" />
-
-        <!-- 설정 버튼 -->
-        <ImageButton
-            android:id="@+id/settings_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_setting" />
-    </LinearLayout>
+    <!-- 설정 버튼 (오른쪽) -->
+    <ImageButton
+        android:id="@+id/settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="25dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_setting"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- 안내 텍스트 -->
     <TextView
