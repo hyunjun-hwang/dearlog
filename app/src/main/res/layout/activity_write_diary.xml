@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="#FFFFFF"
-    tools:context=".WriteDiaryActivity">
+    android:background="#FFFFFF">
 
     <!-- 상단 네비게이션 영역 -->
     <RelativeLayout
@@ -81,7 +80,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@drawable/edittext_background"
         android:hint="이곳에 일기 내용을 작성해주세요"
         android:textSize="16sp"
         android:textColor="#000000"

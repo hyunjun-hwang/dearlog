@@ -15,7 +15,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import com.example.dearlog.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

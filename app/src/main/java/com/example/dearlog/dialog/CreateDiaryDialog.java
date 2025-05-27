@@ -45,7 +45,7 @@ public class CreateDiaryDialog extends Dialog {
         etTitle = findViewById(R.id.et_diary_title);
         colorPalette = findViewById(R.id.color_palette);
         btnDone = findViewById(R.id.btn_done);
-        btnClose = findViewById(R.id.btn_close);
+        btnClose = findViewById(R.id.btn_back);
 
         btnDone.setEnabled(false);
 

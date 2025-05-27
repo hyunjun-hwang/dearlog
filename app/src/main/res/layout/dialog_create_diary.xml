@@ -2,60 +2,69 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialog_create_diary"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="500dp"
     android:orientation="vertical"
     android:background="@drawable/dialog_background"
-    android:padding="24dp"
-    android:layout_gravity="center"
-    android:gravity="center_horizontal">
+    android:layout_gravity="center">
 
-    <!-- 2. 닫기 버튼 -->
-    <ImageView
-        android:id="@+id/btn_close"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="end"
-        android:src="@drawable/ic_close"
-        android:contentDescription="닫기 버튼" />
+    <!-- 뒤로가기 버튼 -->
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_back"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_gravity="start"
+        android:contentDescription="뒤로가기"/>
 
-    <!-- 3. 다이어리 만들기 타이틀 -->
+    <!-- 다이어리 만들기 타이틀 -->
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="다이어리 만들기"
+        style="@style/DialogTitleText"
+        android:layout_marginTop="5dp" />
+
+    <!-- 제목 입력 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="제목:"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp" />
+
+        <EditText
+            android:id="@+id/et_diary_title"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:hint="제목을 입력해주세요"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <!-- 표지색상 텍스트 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="표지색상:"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp" />
-
-    <!-- 4. 제목 라벨 -->
-    <TextView
-        android:id="@+id/tv_input_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="제목"
-        android:textSize="14sp"
-        android:layout_marginBottom="4dp" />
-
-    <!-- 5. 제목 입력 -->
-    <EditText
-        android:id="@+id/et_diary_title"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/edittext_background"
-        android:hint="이름을 입력해주세요"
-        android:paddingHorizontal="12dp" />
-
-    <!-- 6. 표지색상 라벨 -->
-    <TextView
-        android:id="@+id/tv_color_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="표지색상"
-        android:textSize="14sp"
+        android:textColor="@color/black"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginStart="15dp" />
 
     <!-- 색상 선택 버튼들 -->
     <GridLayout
@@ -63,19 +72,115 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="6"
-        android:rowCount="2"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal">
 
-        <!-- 색상 버튼 예시 (총 12개, 아래는 일부 예시) -->
+        <!-- 빨강 -->
         <View
-            android:id="@+id/color_1"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:id="@+id/color_red"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_margin="6dp"
-            android:backgroundTint="#FF6B6B"
+            android:backgroundTint="#FF0000"
             android:background="@drawable/color_circle_selector" />
 
-        <!-- 나머지 색상 버튼도 동일하게 반복 -->
+        <!-- 주황 -->
+        <View
+            android:id="@+id/color_orange"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="6dp"
+            android:backgroundTint="#FFA500"
+            android:background="@drawable/color_circle_selector" />
+
+        <!-- 노랑 -->
+        <View
+            android:id="@+id/color_yellow"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="6dp"
+            android:backgroundTint="#FFFF00"
+            android:background="@drawable/color_circle_selector" />
+
+        <!-- 초록 -->
+        <View
+            android:id="@+id/color_green"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="6dp"
+            android:backgroundTint="#008000"
+            android:background="@drawable/color_circle_selector" />
+
+        <!-- 파랑 -->
+        <View
+            android:id="@+id/color_blue"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="6dp"
+            android:backgroundTint="#0000FF"
+            android:background="@drawable/color_circle_selector" />
+
+        <!-- 네이비 -->
+        <View
+            android:id="@+id/color_navy"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="6dp"
+            android:backgroundTint="#000080"
+            android:background="@drawable/color_circle_selector" />
+
+        <!-- 보라 -->
+        <View
+            android:id="@+id/color_purple"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="6dp"
+            android:backgroundTint="#800080"
+            android:background="@drawable/color_circle_selector" />
+
+        <!-- 검정 -->
+        <View
+            android:id="@+id/color_black"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="6dp"
+            android:backgroundTint="#000000"
+            android:background="@drawable/color_circle_selector" />
+
+        <!-- 하늘 -->
+        <View
+            android:id="@+id/color_sky"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="6dp"
+            android:backgroundTint="#00CFFF"
+            android:background="@drawable/color_circle_selector" />
+
+        <!-- 핑크 -->
+        <View
+            android:id="@+id/color_pink"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="6dp"
+            android:backgroundTint="#FF00FF"
+            android:background="@drawable/color_circle_selector" />
+        <!-- 브라운 -->
+        <View
+            android:id="@+id/color_brown"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="6dp"
+            android:backgroundTint="#A52A2A"
+            android:background="@drawable/color_circle_selector" />
+
+        <!-- 연보라 (라벤더) -->
+        <View
+            android:id="@+id/color_lavender"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="6dp"
+            android:backgroundTint="#E6E6FA"
+            android:background="@drawable/color_circle_selector" />
 
     </GridLayout>
 
@@ -85,18 +190,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="다이어리 만들기 후 세부 디자인이 가능해요!"
-        android:textSize="12sp"
-        android:textColor="#888888"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="8dp" />
+        android:textSize="15sp"
+        android:textColor="#555555"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp" />
 
-    <!-- 7. 완료 버튼 -->
+    <!-- 완료 버튼 -->
     <Button
         android:id="@+id/btn_done"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_width="289dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
         android:text="완료"
-        android:backgroundTint="#C94B91"
-        android:textColor="#FFFFFF"
+        android:background="@drawable/button_rounded"
+        style="@style/ButtonText"
         android:enabled="false" />
+
 </LinearLayout>
