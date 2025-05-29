@@ -74,7 +74,7 @@
             android:id="@+id/grid_weekdays"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="30dp"
             android:columnCount="7">
 
             <!-- 일월화수목금토 -->
@@ -147,7 +147,7 @@
             android:id="@+id/grid_dates"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:columnCount="7">
 
             <!-- 1주차: 빈칸 빈칸 1~5 -->
