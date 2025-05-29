@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_select_emotion"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/dialog_background"
+    android:gravity="center_horizontal">
+
+    <!-- 닫기 버튼 -->
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_close"
+        android:layout_gravity="end"
+        android:contentDescription="닫기 버튼" />
+
+    <!-- 타이틀 -->
+    <TextView
+        android:id="@+id/tv_emotion_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오늘의 감정을 선택해주세요"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- 감정 색상 버튼 영역 -->
+    <GridLayout
+        android:id="@+id/emotion_color_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alignmentMode="alignMargins"
+        android:columnCount="4"
+        android:rowCount="1"
+        android:rowOrderPreserved="false"
+        android:layout_marginBottom="24dp">
+
+        <!-- 색상 예시 버튼 -->
+        <ImageButton
+            android:id="@+id/color_yellow"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/color_circle_yellow"
+            android:contentDescription="노랑 감정" />
+
+        <ImageButton
+            android:id="@+id/color_orange"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/color_circle_orange"
+            android:contentDescription="주황 감정" />
+
+        <ImageButton
+            android:id="@+id/color_blue"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/color_circle_blue"
+            android:contentDescription="파랑 감정" />
+
+        <ImageButton
+            android:id="@+id/color_red"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/color_circle_red"
+            android:contentDescription="빨강 감정" />
+    </GridLayout>
+
+    <!-- 완료 버튼 -->
+    <Button
+        android:id="@+id/btn_select_complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="선택 완료"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/white" />
+</LinearLayout>

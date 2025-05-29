@@ -7,7 +7,7 @@
     android:background="@android:color/white"
     android:padding="24dp">
 
-    <!-- 상단 네비게이션 영역 -->
+    <!-- 상단 네비게이션: 뒤로가기 / 메뉴 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         android:gravity="center_horizontal"
         android:layout_marginBottom="8dp">
 
-        <!-- + 아이콘 (위) -->
+        <!-- + 아이콘 -->
         <ImageView
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -57,16 +57,16 @@
             android:background="@drawable/rounded_circle"
             android:contentDescription="감정 추가" />
 
-        <!-- 감정 원형 표시 -->
+        <!-- 감정 색상 원형 표시 -->
         <View
+            android:id="@+id/color_circle"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:backgroundTint="#FFEB3B"
             android:background="@drawable/color_circle_selector" />
     </LinearLayout>
 
-    <!-- 날짜 텍스트 -->
+    <!-- 날짜 출력 -->
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
@@ -87,13 +87,17 @@
         android:textColor="#333333"
         android:layout_marginBottom="24dp" />
 
-    <!-- 일기 입력 -->
+    <!-- 일기 입력 영역 (EditText) -->
     <EditText
         android:id="@+id/etDiaryContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="이곳에 일기 내용이 작성됩니다."
+        android:layout_height="200dp"
+        android:hint="이곳에 일기 내용을 작성해주세요."
         android:textSize="16sp"
-        android:textColor="#555555"
-        android:padding="5dp"/>
+        android:textColor="#333333"
+        android:background="@drawable/edittext_background"
+        android:padding="12dp"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:lines="8" />
 </LinearLayout>
