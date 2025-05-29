@@ -88,8 +88,8 @@
         android:layout_marginBottom="24dp" />
 
     <!-- 일기 입력 -->
-    <TextView
-        android:id="@+id/tvHint"
+    <EditText
+        android:id="@+id/etDiaryContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="이곳에 일기 내용이 작성됩니다."
