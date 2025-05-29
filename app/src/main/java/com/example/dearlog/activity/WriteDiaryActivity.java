@@ -1,6 +1,7 @@
 package com.example.dearlog.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -16,6 +17,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.example.dearlog.R;
+import com.example.dearlog.dialog.SelectEmotionDialog;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -49,8 +52,29 @@ public class WriteDiaryActivity extends AppCompatActivity {
 
         // 4. 감정 선택 클릭 리스너 (임시 토스트 처리)
         emotionSelector.setOnClickListener(v -> {
-            Toast.makeText(this, "감정 선택 다이얼로그 (미구현)", Toast.LENGTH_SHORT).show();
+            SelectEmotionDialog dialog = new SelectEmotionDialog(this, selectedColor -> {
+                // 선택된 색상 처리
+                View colorView = findViewById(R.id.emotionSelector).findViewById(R.id.color_circle);
+                if (colorView != null) {
+                    switch (selectedColor) {
+                        case "yellow":
+                            colorView.setBackgroundResource(R.drawable.color_circle_yellow);
+                            break;
+                        case "orange":
+                            colorView.setBackgroundResource(R.drawable.color_circle_orange);
+                            break;
+                        case "blue":
+                            colorView.setBackgroundResource(R.drawable.color_circle_blue);
+                            break;
+                        case "red":
+                            colorView.setBackgroundResource(R.drawable.color_circle_red);
+                            break;
+                    }
+                }
+            });
+            dialog.show();
         });
+
 
         // 5. 뒤로가기 버튼 처리
         btnBack.setOnClickListener(v -> finish());
@@ -81,4 +105,6 @@ public class WriteDiaryActivity extends AppCompatActivity {
 
         queue.add(request);
     }
+
+
 }
