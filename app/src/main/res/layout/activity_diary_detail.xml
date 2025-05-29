@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- 상단 툴바 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginBottom="16dp">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="뒤로가기"
+                android:background="@android:color/transparent"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/btn_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu"
+                android:contentDescription="메뉴"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
+
+        <!-- 감정 색상 원 -->
+        <ImageView
+            android:id="@+id/img_emotion_color"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/color_circle_yellow"
+            android:layout_marginBottom="8dp" />
+
+        <!-- 날짜 -->
+        <TextView
+            android:id="@+id/tv_diary_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2025.06.04 작성됨"
+            android:textSize="12sp"
+            android:textColor="#888888"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp" />
+
+        <!-- 질문 -->
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="오늘 제일 좋아하는 시간이 언제야?"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <!-- 일기 내용 -->
+        <TextView
+            android:id="@+id/tv_diary_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="일기 내용이 여기에 표시됩니다."
+            android:textSize="15sp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="#333333" />
+
+    </LinearLayout>
+</ScrollView>
