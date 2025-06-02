@@ -1,9 +1,12 @@
 package com.example.dearlog.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.dearlog.R;
+import com.example.dearlog.util.ThemeUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,13 +25,27 @@ public class MainActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottom_navigation);
 
         // 다크모드 버튼 클릭 이벤트
-        darkModeBtn.setOnClickListener(v -> {
-            // 다크모드 전환 기능 (구현 예정)
+        // MainActivity.java 안 onCreate()에서, 람다(->) 대신 익명 클래스로 작성한 다크모드 토글 부분만
+
+        darkModeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 현재 저장된 모드 불러오기
+                String current = ThemeUtil.modLoad(MainActivity.this);
+
+                // 반대 모드로 적용
+                if (ThemeUtil.DARK_MODE.equals(current)) {
+                    ThemeUtil.applyTheme(MainActivity.this, ThemeUtil.LIGHT_MODE);
+                } else {
+                    ThemeUtil.applyTheme(MainActivity.this, ThemeUtil.DARK_MODE);
+                }
+            }
         });
 
         // 설정 버튼 클릭 이벤트
         settingsBtn.setOnClickListener(v -> {
-            // 설정 화면 이동 기능 (구현 예정)
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
         });
 
         // 하단 네비게이션 메뉴 클릭 이벤트
