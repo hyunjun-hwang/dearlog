@@ -8,15 +8,17 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 public class ThemeUtil {
     private static final String TAG = "ThemeUtil";
+
     private static final String PREF_NAME = "theme_prefs";
-    private static final String KEY_THEME = "theme_color";
+    private static final String KEY_THEME = "theme_mode";
 
     public static final String LIGHT_MODE   = "light";
     public static final String DARK_MODE    = "dark";
     public static final String DEFAULT_MODE = LIGHT_MODE;
 
-    public static void applyTheme(Context context, String themeColor) {
-        switch (themeColor) {
+    // 테마 적용
+    public static void applyTheme(Context context, String themeMode) {
+        switch (themeMode) {
             case LIGHT_MODE:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 Log.d(TAG, "라이트 모드 적용");
@@ -27,27 +29,22 @@ public class ThemeUtil {
                 break;
             default:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                Log.d(TAG, "시스템 설정 모드 적용");
-                themeColor = DEFAULT_MODE;
+                Log.d(TAG, "시스템 기본 모드 적용");
+                themeMode = DEFAULT_MODE;
                 break;
         }
-        modSave(context, themeColor);
+        saveMode(context, themeMode);
     }
 
-
-    public static void modSave(Context context, String select_mod) {
-        SharedPreferences sp;
-        sp = context.getSharedPreferences("mod", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("mod", select_mod);
-        editor.commit();
+    // 모드 저장
+    public static void saveMode(Context context, String mode) {
+        SharedPreferences sp = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        sp.edit().putString(KEY_THEME, mode).apply();
     }
 
-
-    public static String modLoad(Context context) {
-        SharedPreferences sp;
-        sp = context.getSharedPreferences("mod", Context.MODE_PRIVATE);
-        String load_mod = sp.getString("mod", "light");
-        return load_mod;
+    // 모드 불러오기
+    public static String loadMode(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return sp.getString(KEY_THEME, DEFAULT_MODE);
     }
 }

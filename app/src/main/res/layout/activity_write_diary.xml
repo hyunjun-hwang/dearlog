@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/writeDiaryLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
+    android:background="?android:windowBackground"
     android:padding="24dp">
 
     <!-- 상단 네비게이션: 뒤로가기 / 메뉴 -->
@@ -22,6 +23,7 @@
             android:layout_height="48dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_arrow_back"
+            app:tint="?android:textColorPrimary"
             android:contentDescription="뒤로가기" />
 
         <View
@@ -36,6 +38,7 @@
             android:layout_height="48dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_menu"
+            app:tint="?android:textColorPrimary"
             android:contentDescription="메뉴" />
     </LinearLayout>
 
@@ -63,7 +66,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/color_circle_selector" />
+            android:background="@drawable/color_circle_yellow" />
     </LinearLayout>
 
     <!-- 날짜 출력 -->
@@ -73,7 +76,7 @@
         android:layout_height="wrap_content"
         android:text="2025.05.08 목요일"
         android:textSize="14sp"
-        android:textColor="#999999"
+        android:textColor="?android:textColorSecondary"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="24dp" />
 
@@ -84,7 +87,7 @@
         android:layout_height="wrap_content"
         android:text="오늘의 질문:\n요즘 제일 좋아하는 시간이 언제야?"
         android:textSize="16sp"
-        android:textColor="#333333"
+        android:textColor="?android:textColorPrimary"
         android:layout_marginBottom="24dp" />
 
     <!-- 일기 입력 영역 (EditText) -->
@@ -94,7 +97,8 @@
         android:layout_height="200dp"
         android:hint="이곳에 일기 내용을 작성해주세요."
         android:textSize="16sp"
-        android:textColor="#333333"
+        android:textColor="?android:textColorPrimary"
+        android:textColorHint="?android:textColorSecondary"
         android:background="@drawable/edittext_background"
         android:padding="12dp"
         android:gravity="top"

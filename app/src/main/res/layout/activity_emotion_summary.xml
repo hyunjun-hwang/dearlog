@@ -4,16 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?android:windowBackground">
 
     <!-- 다크모드 버튼 -->
     <ImageButton
         android:id="@+id/btn_dark_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="다크모드"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_darkmode"
-        android:contentDescription="다크모드"
+        app:tint="?android:textColorPrimary"
         android:layout_marginStart="28dp"
         android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,9 +25,10 @@
         android:id="@+id/btn_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="설정"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_setting"
-        android:contentDescription="설정"
+        app:tint="?android:textColorPrimary"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="28dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,13 +42,13 @@
         android:text="이번달은 ‘행복함’이\n제일 많아요"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="?android:textColorPrimary"
         android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@+id/btn_dark_mode"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp" />
+        android:layout_marginEnd="28dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_dark_mode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- 감정별 모아보기 -->
     <LinearLayout
@@ -55,22 +57,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="28dp"
+        android:layout_marginStart="28dp"
         app:layout_constraintTop_toBottomOf="@id/tv_main_title"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="28dp">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="감정별 모아보기"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary" />
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="6dp"
-            android:src="@drawable/ic_array" />
+            android:src="@drawable/ic_array"
+            app:tint="?android:textColorPrimary" />
     </LinearLayout>
 
     <!-- 감정별 모아보기 버튼 바로 아래에 붙여주세요 -->
@@ -200,16 +203,14 @@
 
     </GridLayout>
 
-
-
     <!-- 하단 네비게이션 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
         android:layout_height="65dp"
-        android:background="@android:color/white"
+        android:background="?android:windowBackground"
         app:itemIconSize="36dp"
-        app:itemIconTint="@color/black"
+        app:itemIconTint="?android:textColorPrimary"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
