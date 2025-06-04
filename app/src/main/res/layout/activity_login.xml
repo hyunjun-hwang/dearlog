@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="?android:windowBackground"
     android:padding="0dp">
 
     <!-- 상단 아이콘 -->
@@ -20,6 +21,7 @@
         android:id="@+id/app_name"
         style="@style/DearlogTitle"
         android:text="Dearlog"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintTop_toBottomOf="@id/diary_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -29,6 +31,7 @@
         android:id="@+id/login_title"
         style="@style/SubTitle"
         android:text="로그인"
+        android:textColor="?android:textColorPrimary"
         android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@id/app_name"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +42,8 @@
         android:id="@+id/email_input"
         style="@style/RoundedEditText"
         android:hint="이메일"
+        android:textColor="?android:textColorPrimary"
+        android:textColorHint="?android:textColorSecondary"
         android:inputType="textEmailAddress"
         android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@id/login_title"
@@ -50,6 +55,8 @@
         android:id="@+id/password_input"
         style="@style/RoundedEditText"
         android:hint="비밀번호"
+        android:textColor="?android:textColorPrimary"
+        android:textColorHint="?android:textColorSecondary"
         android:inputType="textPassword"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/email_input"
@@ -61,6 +68,7 @@
         android:id="@+id/find_info"
         style="@style/FindInfoText"
         android:text="아이디 찾기 | 비밀번호 찾기"
+        android:textColor="?android:textColorSecondary"
         android:layout_marginTop="30dp"
         app:layout_constraintTop_toBottomOf="@id/password_input"
         app:layout_constraintStart_toStartOf="parent"

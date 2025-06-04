@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="?android:windowBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,16 +12,15 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- 뒤로가기 버튼 -->
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_back"
             android:background="@android:color/transparent"
+            app:tint="?android:textColorPrimary"
             android:contentDescription="뒤로가기" />
 
-        <!-- 프로필 관리 -->
         <LinearLayout
             android:id="@+id/profile_setting"
             android:layout_width="match_parent"
@@ -32,21 +33,23 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_profile" />
+                android:src="@drawable/ic_profile"
+                app:tint="?android:textColorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="프로필 및 계정 관리"
-                android:textColor="#000000"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- 구분선 -->
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#DDDDDD" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:textColorSecondary" />
 
-        <!-- 일기알림 + 스위치 -->
         <LinearLayout
             android:id="@+id/alarm_setting"
             android:layout_width="match_parent"
@@ -60,7 +63,8 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_alarm" />
+                android:src="@drawable/ic_alarm"
+                app:tint="?android:textColorPrimary" />
 
             <TextView
                 android:layout_width="0dp"
@@ -68,7 +72,7 @@
                 android:layout_weight="0.8"
                 android:layout_marginStart="12dp"
                 android:text="일기알림"
-                android:textColor="#000000"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="16sp" />
 
             <Switch
@@ -77,8 +81,6 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <!-- 반복 항목들 (아이콘 + 텍스트) -->
-        <!-- 테마 설정 -->
         <LinearLayout
             android:id="@+id/theme_setting"
             android:layout_width="match_parent"
@@ -90,18 +92,18 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_palette" />
+                android:src="@drawable/ic_palette"
+                app:tint="?android:textColorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="테마 설정"
-                android:textColor="#000000"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- 글자 스타일 -->
         <LinearLayout
             android:id="@+id/text_style_setting"
             android:layout_width="match_parent"
@@ -113,85 +115,150 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_text" />
+                android:src="@drawable/ic_text"
+                app:tint="?android:textColorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="글자 스타일"
-                android:textColor="#000000"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- 구분선 -->
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#DDDDDD" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:textColorSecondary" />
 
-        <!-- 이하 동일 구조 복제 -->
-        <!-- 화면 잠금 -->
         <LinearLayout
-            android:id="@+id/screen_lock_setting" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="20dp">
+            android:id="@+id/screen_lock_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="20dp">
 
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_lock" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginStart="12dp" android:text="화면 잠금" android:textColor="#000000"
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_lock"
+                app:tint="?android:textColorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="화면 잠금"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- 백업/복원 -->
         <LinearLayout
-            android:id="@+id/backup_restore_setting" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="20dp">
+            android:id="@+id/backup_restore_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="20dp">
 
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_cloud" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginStart="12dp" android:text="백업/복원" android:textColor="#000000"
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_cloud"
+                app:tint="?android:textColorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="백업/복원"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- PDF 내보내기 -->
         <LinearLayout
-            android:id="@+id/pdf_export" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="20dp">
+            android:id="@+id/pdf_export"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="20dp">
 
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_pdf" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginStart="12dp" android:text="PDF 내보내기" android:textColor="#000000"
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_pdf"
+                app:tint="?android:textColorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="PDF 내보내기"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- 언어 설정 -->
-        <LinearLayout android:id="@+id/language_setting" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="20dp">
+        <LinearLayout
+            android:id="@+id/language_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="20dp">
 
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_language" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginStart="12dp" android:text="언어 설정" android:textColor="#000000"
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_language"
+                app:tint="?android:textColorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="언어 설정"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- 친구 관리 -->
-        <LinearLayout android:id="@+id/friend_management_setting" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="20dp">
+        <LinearLayout
+            android:id="@+id/friend_management_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="20dp">
 
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_friend" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginStart="12dp" android:text="친구 관리" android:textColor="#000000"
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_friend"
+                app:tint="?android:textColorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="친구 관리"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- 구분선 -->
-        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#DDDDDD"
-            android:layout_marginTop="16dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:textColorSecondary" />
 
-        <!-- 계정 탈퇴 -->
         <TextView
             android:id="@+id/delete_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="계정 탈퇴"
-            android:textColor="#000000"
+            android:textColor="?android:textColorPrimary"
             android:textSize="16sp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp" />

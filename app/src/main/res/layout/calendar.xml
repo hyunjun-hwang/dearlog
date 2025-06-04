@@ -5,7 +5,7 @@
     android:id="@+id/calendar_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="?android:windowBackground">
 
     <!-- 다크모드 토글 -->
     <ImageButton
@@ -17,6 +17,7 @@
         android:contentDescription="다크모드"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
+        app:tint="?android:textColorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,6 +31,7 @@
         android:contentDescription="설정"
         android:layout_marginEnd="24dp"
         android:layout_marginTop="24dp"
+        app:tint="?android:textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,12 +40,12 @@
         android:id="@+id/calendar_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FAFAFA"
+        android:background="?android:colorBackground"
         android:orientation="vertical"
         android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_dark_mode">
+        app:layout_constraintTop_toBottomOf="@id/btn_dark_mode"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
 
         <!-- 월 네비게이션 -->
         <LinearLayout
@@ -58,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4월"
-                android:textColor="#000000"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -66,7 +68,8 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginStart="4dp"
-                android:src="@drawable/ic_array" />
+                android:src="@drawable/ic_array"
+                app:tint="?android:textColorPrimary" />
         </LinearLayout>
 
         <!-- 요일 헤더 -->
@@ -84,7 +87,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="일"
-                android:textColor="#CCCCCC"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="14sp" />
 
             <TextView
@@ -93,7 +96,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="월"
-                android:textColor="#CCCCCC"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="14sp" />
 
             <TextView
@@ -102,7 +105,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="화"
-                android:textColor="#CCCCCC"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="14sp" />
 
             <TextView
@@ -111,7 +114,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="수"
-                android:textColor="#CCCCCC"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="14sp" />
 
             <TextView
@@ -120,7 +123,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="목"
-                android:textColor="#CCCCCC"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="14sp" />
 
             <TextView
@@ -129,7 +132,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="금"
-                android:textColor="#CCCCCC"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="14sp" />
 
             <TextView
@@ -138,7 +141,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="토"
-                android:textColor="#CCCCCC"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="14sp" />
         </GridLayout>
 
@@ -167,7 +170,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="1"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -176,7 +179,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="2"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -185,7 +188,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="3"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -194,7 +197,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="4"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -203,7 +206,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="5"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <!-- 2주차: 6~12 -->
@@ -213,7 +216,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="6"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -222,7 +225,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="7"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -231,7 +234,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="8"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -240,7 +243,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="9"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -249,7 +252,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="10"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -258,7 +261,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="11"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -267,7 +270,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="12"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <!-- 3주차: 13~19 -->
@@ -277,7 +280,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="13"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -286,7 +289,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="14"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -295,7 +298,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="15"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -304,7 +307,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="16"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -313,7 +316,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="17"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -322,7 +325,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="18"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -331,7 +334,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="19"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <!-- 4주차: 20~26 -->
@@ -341,7 +344,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="20"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -350,7 +353,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="21"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -359,7 +362,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="22"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -368,7 +371,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="23"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -377,7 +380,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="24"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -386,7 +389,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="25"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -395,17 +398,17 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="26"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
-            <!-- 4주차: 20~26 -->
+            <!-- 5주차: 27~31 -->
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="27"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -414,7 +417,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="28"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -423,7 +426,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="29"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -432,7 +435,7 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="30"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
 
             <TextView
@@ -441,9 +444,8 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="31"
-                android:textColor="#444"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="14sp" />
-
         </GridLayout>
     </LinearLayout>
 
@@ -452,9 +454,9 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
         android:layout_height="65dp"
-        android:background="@android:color/white"
+        android:background="?android:windowBackground"
         app:itemIconSize="36dp"
-        app:itemIconTint="@color/black"
+        app:itemIconTint="?android:textColorPrimary"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
