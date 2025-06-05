@@ -2,93 +2,106 @@ package com.example.dearlog.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.example.dearlog.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CreateDiaryDialog extends Dialog {
 
-    private EditText etTitle;
-    private GridLayout colorPalette;
+    private EditText etDiaryTitle;
+    private ImageButton btnBack;
     private Button btnDone;
-    private ImageView btnClose;
+    private View selectedColorView;
+    private String selectedColorHex = null;
 
-    private int selectedColorResId = -1; // 선택된 색상 리소스 ID
+    private final OnDiaryCreateListener diaryCreateListener;
 
+    // 콜백 인터페이스 정의
     public interface OnDiaryCreateListener {
-        void onDiaryCreated(String title, int colorResId);
+        void onDiaryCreate(String title, String colorHex);
     }
 
-    private OnDiaryCreateListener listener;
-
-    public CreateDiaryDialog(Context context, OnDiaryCreateListener listener) {
+    public CreateDiaryDialog(@NonNull Context context, OnDiaryCreateListener listener) {
         super(context);
-        this.listener = listener;
+        this.diaryCreateListener = listener;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
-        setContentView(R.layout.dialog_create_diary);
-        setCancelable(false);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_create_diary, null);
+        setContentView(view);
 
-        etTitle = findViewById(R.id.et_diary_title);
-        colorPalette = findViewById(R.id.color_palette);
-        btnDone = findViewById(R.id.btn_done);
-        btnClose = findViewById(R.id.btn_back);
+        // 뷰 초기화
+        etDiaryTitle = view.findViewById(R.id.et_diary_title);
+        btnBack = view.findViewById(R.id.btn_back);
+        btnDone = view.findViewById(R.id.btn_done);
 
-        btnDone.setEnabled(false);
+        btnBack.setOnClickListener(v -> dismiss());
 
-        // 색상 선택 핸들링
-        for (int i = 0; i < colorPalette.getChildCount(); i++) {
-            final View colorView = colorPalette.getChildAt(i);
+        int[] colorIds = new int[] {
+                R.id.color_red, R.id.color_orange, R.id.color_yellow,
+                R.id.color_green, R.id.color_blue, R.id.color_navy,
+                R.id.color_purple, R.id.color_black, R.id.color_sky,
+                R.id.color_pink, R.id.color_brown, R.id.color_lavender
+        };
+
+        Map<Integer, String> colorHexMap = new HashMap<>();
+        colorHexMap.put(R.id.color_red, "#FF0000");
+        colorHexMap.put(R.id.color_orange, "#FFA500");
+        colorHexMap.put(R.id.color_yellow, "#FFFF00");
+        colorHexMap.put(R.id.color_green, "#008000");
+        colorHexMap.put(R.id.color_blue, "#0000FF");
+        colorHexMap.put(R.id.color_navy, "#000080");
+        colorHexMap.put(R.id.color_purple, "#800080");
+        colorHexMap.put(R.id.color_black, "#000000");
+        colorHexMap.put(R.id.color_sky, "#00CFFF");
+        colorHexMap.put(R.id.color_pink, "#FF00FF");
+        colorHexMap.put(R.id.color_brown, "#A52A2A");
+        colorHexMap.put(R.id.color_lavender, "#E6E6FA");
+
+        for (int id : colorIds) {
+            View colorView = view.findViewById(id);
             colorView.setOnClickListener(v -> {
-                selectedColorResId = ((GradientDrawable) colorView.getBackground()).getColor().getDefaultColor();
-                highlightSelectedColor(colorView);
-                updateDoneButtonState();
+                if (selectedColorView != null) {
+                    selectedColorView.setBackgroundResource(R.drawable.color_circle_selector);
+                }
+                selectedColorView = v;
+                selectedColorHex = colorHexMap.get(id);
+                v.setBackgroundResource(R.drawable.color_circle_selector); // 선택 표시
+
+                Toast.makeText(getContext(), "선택한 색상 코드: " + selectedColorHex, Toast.LENGTH_SHORT).show();
             });
         }
 
-        // 제목 입력 변화 감지
-        etTitle.setOnFocusChangeListener((v, hasFocus) -> updateDoneButtonState());
-
-        // 닫기 버튼
-        btnClose.setOnClickListener(v -> dismiss());
-
-        // 완료 버튼
         btnDone.setOnClickListener(v -> {
-            String title = etTitle.getText().toString().trim();
-            if (title.isEmpty() || selectedColorResId == -1) {
-                Toast.makeText(getContext(), "제목과 색상을 선택해주세요", Toast.LENGTH_SHORT).show();
+            String title = etDiaryTitle.getText().toString().trim();
+
+            if (title.isEmpty()) {
+                Toast.makeText(getContext(), "제목을 입력해주세요", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (listener != null) {
-                listener.onDiaryCreated(title, selectedColorResId);
+
+            if (selectedColorHex == null) {
+                Toast.makeText(getContext(), "표지 색상을 선택해주세요", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            diaryCreateListener.onDiaryCreate(title, selectedColorHex); // 콜백 실행
             dismiss();
         });
-    }
-
-    private void updateDoneButtonState() {
-        String title = etTitle.getText().toString().trim();
-        btnDone.setEnabled(!title.isEmpty() && selectedColorResId != -1);
-    }
-
-    private void highlightSelectedColor(View selectedView) {
-        for (int i = 0; i < colorPalette.getChildCount(); i++) {
-            View colorView = colorPalette.getChildAt(i);
-            colorView.setAlpha(1f); // 기본 불투명
-        }
-        selectedView.setAlpha(0.5f); // 선택된 색상은 반투명 처리
     }
 }

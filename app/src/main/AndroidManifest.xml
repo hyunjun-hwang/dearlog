@@ -29,11 +29,10 @@
 
         <!-- 메인 액티비티 -->
         <activity android:name=".activity.MainActivity" />
-
-        <!-- 회원가입 액티비티 -->
         <activity android:name=".activity.RegisterActivity" />
-        <!-- 회원가입 액티비티 -->
         <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.WriteDiaryActivity" />
+        <activity android:name=".activity.EmotionSummaryActivity" />
 
     </application>
 
