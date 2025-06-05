@@ -8,7 +8,7 @@
         android:icon="@drawable/ic_diary2"
         android:title="" />
     <item
-        android:id="@+id/nav_mood"
+        android:id="@+id/nav_emotion"
         android:icon="@drawable/ic_emoji"
         android:title="" />
     <item
