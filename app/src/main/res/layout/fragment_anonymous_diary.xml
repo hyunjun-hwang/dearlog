@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutAnonymousDiary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".fragment.AnonymousDiaryFragment">
+
+    <!-- 제목 또는 설명 (선택) -->
+    <TextView
+        android:id="@+id/tvAnonymousTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="익명 일기 열람"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- 일기 목록 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerAnonymousDiary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp" />
+
+</LinearLayout>

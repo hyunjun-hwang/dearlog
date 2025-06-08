@@ -6,10 +6,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.TextView;
-import com.example.dearlog.dialog.ConnectFriendDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dearlog.R;
+import com.example.dearlog.dialog.ConnectFriendDialog;
 import com.example.dearlog.dialog.CreateDiaryDialog;
 import com.example.dearlog.util.ThemeUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // 테마 적용
         ThemeUtil.applyTheme(this, ThemeUtil.loadMode(this));
 
         super.onCreate(savedInstanceState);
@@ -37,54 +39,69 @@ public class MainActivity extends AppCompatActivity {
         connectText = findViewById(R.id.connect_text);
         exclamationIcon = findViewById(R.id.exclamation_icon);
 
+        // 친구 연결 텍스트 클릭 시 다이얼로그 연결
         connectText.setOnClickListener(v -> {
             if (!isFriendConnected) {
-                // 친구 연결 다이얼로그 띄우기
-                ConnectFriendDialog dialog = new ConnectFriendDialog(this, friendId -> {
-                    // 친구 ID 받았을 때 UI 변경
-                    connectText.setText("교환일기를\n만들어주세요!");
-                    exclamationIcon.setText("?");
-
-                    isFriendConnected = true; // 친구 연결 상태 저장
-                });
-                dialog.show();
+                showFriendConnectDialog();
             } else {
-                // 친구 연결되어 있으면 교환일기 생성 다이얼로그 띄우기
-                CreateDiaryDialog diaryDialog = new CreateDiaryDialog(this, (title, colorHex) ->{
-                    // 교환일기 생성 후 처리 (ex: 저장, 이동 등)
-                    Toast.makeText(this, "제목: " + title + "\n색상: " + colorHex, Toast.LENGTH_LONG).show();
-                });
-                diaryDialog.show();
-            }
-        });
-        // 다크모드 버튼 클릭
-        darkModeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String current = ThemeUtil.loadMode(MainActivity.this);
-                if (ThemeUtil.DARK_MODE.equals(current)) {
-                    ThemeUtil.applyTheme(MainActivity.this, ThemeUtil.LIGHT_MODE);
-                } else {
-                    ThemeUtil.applyTheme(MainActivity.this, ThemeUtil.DARK_MODE);
-                }
-                recreate(); // 테마 적용 후 액티비티 재시작
+                showCreateDiaryDialog();
             }
         });
 
-        // 설정 화면 이동
+        // 다크모드 전환
+        darkModeBtn.setOnClickListener(v -> {
+            String current = ThemeUtil.loadMode(MainActivity.this);
+            if (ThemeUtil.DARK_MODE.equals(current)) {
+                ThemeUtil.applyTheme(MainActivity.this, ThemeUtil.LIGHT_MODE);
+            } else {
+                ThemeUtil.applyTheme(MainActivity.this, ThemeUtil.DARK_MODE);
+            }
+            recreate();
+        });
+
+        // 설정화면 이동
         settingsBtn.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
         });
+
+        // 하단 네비게이션 설정
         setupBottomNavigation();
 
+        // 앱 실행 시 자동으로 친구 연결 다이얼로그 표시
+        if (!isFriendConnected) {
+            showFriendConnectDialog();
+        }
     }
-    // 하단 네비게이션 클릭 이벤트
+
+    private void showFriendConnectDialog() {
+        ConnectFriendDialog dialog = new ConnectFriendDialog(this, friendId -> {
+            connectText.setText("교환일기를\n만들어주세요!");
+            exclamationIcon.setText("?");
+            isFriendConnected = true;
+
+            // 친구 연결 후 바로 교환일기 생성 다이얼로그 띄우기
+            showCreateDiaryDialog();
+        });
+        dialog.show();
+    }
+
+    private void showCreateDiaryDialog() {
+        CreateDiaryDialog diaryDialog = new CreateDiaryDialog(this, (title, colorHex) -> {
+            // 일기 작성 화면으로 전환
+            Intent intent = new Intent(MainActivity.this, WriteDiaryActivity.class);
+            intent.putExtra("title", title);
+            intent.putExtra("color", colorHex);
+            startActivity(intent);
+        });
+        diaryDialog.show();
+    }
+
     private void setupBottomNavigation() {
         bottomNav.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
-                recreate(); // 현재 페이지 새로고침
+                recreate(); // 홈 새로고침
                 return true;
             } else if (itemId == R.id.nav_book) {
                 Toast.makeText(this, "디자인 기능은 아직 미구현입니다", Toast.LENGTH_SHORT).show();
