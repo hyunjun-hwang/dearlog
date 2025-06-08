@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailInput, passwordInput;
     private Button loginButton, signupButton;
     private TextView findInfo;
+    private RequestQueue queue;
 
     private String url = "http://10.0.2.2:8080/test.json"; // 로컬 서버용 주소
 
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.login_button);
         signupButton = findViewById(R.id.signup_button);
         findInfo = findViewById(R.id.find_info);
+        queue = Volley.newRequestQueue(this);
 
         // 로그인 버튼 클릭 처리
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -44,8 +46,13 @@ public class LoginActivity extends AppCompatActivity {
                 String email = emailInput.getText().toString().trim();
                 String password = passwordInput.getText().toString().trim();
 
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "이메일과 비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+                //이메일 & 비밀번호 유효성 검사
+                if (email.isEmpty() ) {
+                    Toast.makeText(LoginActivity.this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else if(isValidEmail(email)!=true) {
+                    Toast.makeText(LoginActivity.this, "이메일을 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else if (password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -81,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                 );
 
-                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+
                 queue.add(request);
             }
         });
@@ -102,5 +109,12 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "아이디/비밀번호 찾기 기능은 추후 구현 예정입니다.", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
+    private boolean isValidEmail(String email) {
+        // 이메일 유효성 검사 정규표현식
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
+    }
+
 }
