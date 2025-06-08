@@ -12,13 +12,12 @@
         android:id="@+id/dark_mode_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:layout_marginStart="25dp"
-        android:background="@android:color/transparent"
+        android:layout_marginTop="60dp"
         android:src="@drawable/ic_darkmode"
         app:tint="?android:textColorPrimary"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 설정 버튼 (오른쪽) -->
     <ImageButton
@@ -27,7 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="25dp"
-        android:background="@android:color/transparent"
         android:src="@drawable/ic_setting"
         app:tint="?android:textColorPrimary"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +38,6 @@
         android:text="친구와\n연결해주세요!"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/exclamation_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="200dp"/>
