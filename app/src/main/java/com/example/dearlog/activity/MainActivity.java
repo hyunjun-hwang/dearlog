@@ -110,9 +110,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, EmotionSummaryActivity.class));
                 return true;
             } else if (itemId == R.id.nav_calendar) {
-                Toast.makeText(this, "캘린더 기능은 아직 미구현입니다", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, CalendarActivity.class);
+                startActivity(intent);
                 return true;
             }
+
             return false;
         });
     }
