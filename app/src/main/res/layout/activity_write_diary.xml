@@ -16,7 +16,6 @@
         android:gravity="center_vertical"
         android:layout_marginBottom="16dp">
 
-        <!-- 뒤로가기 버튼 -->
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="48dp"
@@ -31,7 +30,6 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <!-- 메뉴 버튼 -->
         <ImageButton
             android:id="@+id/btnMenu"
             android:layout_width="48dp"
@@ -42,6 +40,17 @@
             android:contentDescription="메뉴" />
     </LinearLayout>
 
+    <!-- ✅ 다이어리 제목 표시 -->
+    <TextView
+        android:id="@+id/tvDiaryTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📒 다이어리 제목"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="?android:textColorPrimary"
+        android:layout_marginBottom="12dp" />
+
     <!-- 감정 선택 영역 -->
     <LinearLayout
         android:id="@+id/emotionSelector"
@@ -51,7 +60,6 @@
         android:gravity="center_horizontal"
         android:layout_marginBottom="8dp">
 
-        <!-- + 아이콘 -->
         <ImageView
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -60,7 +68,6 @@
             android:background="@drawable/rounded_circle"
             android:contentDescription="감정 추가" />
 
-        <!-- 감정 색상 원형 표시 -->
         <View
             android:id="@+id/color_circle"
             android:layout_width="48dp"
@@ -69,7 +76,20 @@
             android:background="@drawable/color_circle_yellow" />
     </LinearLayout>
 
-    <!-- 날짜 출력 -->
+    <!-- 선택된 감정 출력 -->
+    <TextView
+        android:id="@+id/tvSelectedEmotion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="😐 감정을 선택하세요"
+        android:textSize="16sp"
+        android:textColor="?android:textColorPrimary"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"/>
+
+
+    <!-- 날짜 -->
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
@@ -80,7 +100,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="24dp" />
 
-    <!-- 오늘의 질문 -->
+    <!-- 질문 -->
     <TextView
         android:id="@+id/tvQuestion"
         android:layout_width="match_parent"
@@ -90,7 +110,7 @@
         android:textColor="?android:textColorPrimary"
         android:layout_marginBottom="24dp" />
 
-    <!-- 일기 입력 영역 (EditText) -->
+    <!-- 일기 입력 -->
     <EditText
         android:id="@+id/etDiaryContent"
         android:layout_width="match_parent"
@@ -104,4 +124,18 @@
         android:gravity="top"
         android:inputType="textMultiLine"
         android:lines="8" />
+
+    <!-- 작성 완료 버튼 -->
+    <Button
+        android:id="@+id/btnFinish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="작성 완료"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/primary"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:padding="12dp" />
+
 </LinearLayout>

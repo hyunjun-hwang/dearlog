@@ -1,466 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/calendar_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?android:windowBackground">
-
+<androidx.constraintlayout.widget.ConstraintLayout android:background="?android:windowBackground" android:id="@+id/calendar_root" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- 다크모드 토글 -->
-    <ImageButton
-        android:id="@+id/btn_dark_mode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_darkmode"
-        android:background="@android:color/transparent"
-        android:contentDescription="다크모드"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        app:tint="?android:textColorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    <ImageButton android:background="@android:color/transparent" android:contentDescription="다크모드" android:id="@+id/btn_dark_mode" android:layout_height="wrap_content" android:layout_marginStart="24dp" android:layout_marginTop="24dp" android:layout_width="wrap_content" android:src="@drawable/ic_darkmode" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:tint="?android:textColorPrimary"/>
     <!-- 설정 버튼 -->
-    <ImageButton
-        android:id="@+id/btn_settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_setting"
-        android:background="@android:color/transparent"
-        android:contentDescription="설정"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="24dp"
-        app:tint="?android:textColorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    <ImageButton android:background="@android:color/transparent" android:contentDescription="설정" android:id="@+id/btn_settings" android:layout_height="wrap_content" android:layout_marginEnd="24dp" android:layout_marginTop="24dp" android:layout_width="wrap_content" android:src="@drawable/ic_setting" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:tint="?android:textColorPrimary"/>
     <!-- 캘린더 부분만: 3주차까지 표시, 디자인 수정 -->
-    <LinearLayout
-        android:id="@+id/calendar_section"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:colorBackground"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_dark_mode"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
-
+    <LinearLayout android:background="?android:colorBackground" android:id="@+id/calendar_section" android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" android:padding="16dp" app:layout_constraintBottom_toTopOf="@+id/bottom_navigation" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/btn_dark_mode">
         <!-- 월 네비게이션 -->
-        <LinearLayout
-            android:id="@+id/month_nav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_month"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4월"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/ic_array"
-                app:tint="?android:textColorPrimary" />
+        <LinearLayout android:gravity="center_vertical" android:id="@+id/month_nav" android:layout_height="wrap_content" android:layout_width="wrap_content" android:orientation="horizontal">
+            <TextView android:id="@+id/tv_month" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="4월" android:textColor="?android:textColorPrimary" android:textSize="18sp" android:textStyle="bold"/>
+            <ImageView android:layout_height="16dp" android:layout_marginStart="4dp" android:layout_width="16dp" android:src="@drawable/ic_array" app:tint="?android:textColorPrimary"/>
         </LinearLayout>
-
         <!-- 요일 헤더 -->
-        <GridLayout
-            android:id="@+id/grid_weekdays"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:columnCount="7">
-
+        <GridLayout android:columnCount="7" android:id="@+id/grid_weekdays" android:layout_height="wrap_content" android:layout_marginTop="30dp" android:layout_width="match_parent">
             <!-- 일월화수목금토 -->
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="일"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="월"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="화"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="수"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="목"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="금"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="토"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="14sp" />
+            <TextView android:gravity="center" android:layout_columnWeight="1" android:layout_height="wrap_content" android:layout_width="0dp" android:text="일" android:textColor="?android:textColorSecondary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:layout_columnWeight="1" android:layout_height="wrap_content" android:layout_width="0dp" android:text="월" android:textColor="?android:textColorSecondary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:layout_columnWeight="1" android:layout_height="wrap_content" android:layout_width="0dp" android:text="화" android:textColor="?android:textColorSecondary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:layout_columnWeight="1" android:layout_height="wrap_content" android:layout_width="0dp" android:text="수" android:textColor="?android:textColorSecondary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:layout_columnWeight="1" android:layout_height="wrap_content" android:layout_width="0dp" android:text="목" android:textColor="?android:textColorSecondary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:layout_columnWeight="1" android:layout_height="wrap_content" android:layout_width="0dp" android:text="금" android:textColor="?android:textColorSecondary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:layout_columnWeight="1" android:layout_height="wrap_content" android:layout_width="0dp" android:text="토" android:textColor="?android:textColorSecondary" android:textSize="14sp"/>
         </GridLayout>
-
         <!-- 날짜 그리드: 3주차까지 -->
-        <GridLayout
-            android:id="@+id/grid_dates"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:columnCount="7">
-
+        <GridLayout android:columnCount="7" android:id="@+id/grid_dates" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:layout_width="match_parent">
             <!-- 1주차: 빈칸 빈칸 1~5 -->
-            <View
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="1"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="2"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="3"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="4"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="5"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
+            <View android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp"/>
+            <View android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_1" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="1" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_2" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="2" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_3" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="3" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_4" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="4" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_5" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="5" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
             <!-- 2주차: 6~12 -->
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="6"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="7"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="8"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="9"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="10"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="11"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="12"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
+            <TextView android:gravity="center" android:id="@+id/calendar_day_6" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="6" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_7" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="7" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_8" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="8" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_9" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="9" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_10" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="10" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_11" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="11" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_12" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="12" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
             <!-- 3주차: 13~19 -->
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="13"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="14"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="15"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="16"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="17"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="18"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="19"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
+            <TextView android:gravity="center" android:id="@+id/calendar_day_13" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="13" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_14" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="14" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_15" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="15" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_16" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="16" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_17" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="17" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_18" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="18" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_19" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="19" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
             <!-- 4주차: 20~26 -->
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="20"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="21"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="22"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="23"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="24"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="25"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="26"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
+            <TextView android:gravity="center" android:id="@+id/calendar_day_20" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="20" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_21" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="21" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_22" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="22" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_23" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="23" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_24" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="24" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_25" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="25" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_26" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="26" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
             <!-- 5주차: 27~31 -->
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="27"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="28"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="29"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="30"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:text="31"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="14sp" />
+            <TextView android:gravity="center" android:id="@+id/calendar_day_27" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="27" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_28" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="28" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_29" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="29" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_30" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="30" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
+            <TextView android:gravity="center" android:id="@+id/calendar_day_31" android:layout_columnWeight="1" android:layout_height="40dp" android:layout_width="0dp" android:text="31" android:textColor="?android:textColorPrimary" android:textSize="14sp"/>
         </GridLayout>
     </LinearLayout>
-
     <!-- 하단 내비게이션 -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="0dp"
-        android:layout_height="65dp"
-        android:background="?android:windowBackground"
-        app:itemIconSize="36dp"
-        app:itemIconTint="?android:textColorPrimary"
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView android:background="?android:windowBackground" android:id="@+id/bottom_navigation" android:layout_height="65dp" android:layout_width="0dp" app:itemIconSize="36dp" app:itemIconTint="?android:textColorPrimary" app:labelVisibilityMode="unlabeled" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:menu="@menu/bottom_nav_menu"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

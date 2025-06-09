@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_gray">#FFCCCCCC</color>
     <color name="dark_gray">#FF444444</color>
+    <color name="primary">#000000</color> <!-- 원하는 색상 코드로 수정 가능 -->
 </resources>

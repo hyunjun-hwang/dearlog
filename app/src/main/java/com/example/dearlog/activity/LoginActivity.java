@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -24,14 +25,15 @@ public class LoginActivity extends AppCompatActivity {
     private TextView findInfo;
     private RequestQueue queue;
 
-    private String url = "http://10.0.2.2:8080/test.json"; // 로컬 서버용 주소
+    // 로컬 테스트용 서버 주소
+    private String url = "http://10.0.2.2:8080/test.json"; // AVD 기준 로컬 호스트
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // 뷰 초기화
+        // View 연결
         emailInput = findViewById(R.id.email_input);
         passwordInput = findViewById(R.id.password_input);
         loginButton = findViewById(R.id.login_button);
@@ -39,23 +41,26 @@ public class LoginActivity extends AppCompatActivity {
         findInfo = findViewById(R.id.find_info);
         queue = Volley.newRequestQueue(this);
 
-        // 로그인 버튼 클릭 처리
+        // 로그인 버튼 클릭 이벤트
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = emailInput.getText().toString().trim();
                 String password = passwordInput.getText().toString().trim();
 
-                //이메일 & 비밀번호 유효성 검사
-                if (email.isEmpty() ) {
+                // 이메일 & 비밀번호 유효성 체크
+                if (email.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show();
-                }else if(isValidEmail(email)!=true) {
-                    Toast.makeText(LoginActivity.this, "이메일을 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
-                }else if (password.isEmpty()) {
+                    return;
+                } else if (!isValidEmail(email)) {
+                    Toast.makeText(LoginActivity.this, "이메일 형식이 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                // 서버 요청 (GET 방식)
                 JsonObjectRequest request = new JsonObjectRequest(
                         Request.Method.GET,
                         url,
@@ -68,9 +73,10 @@ public class LoginActivity extends AppCompatActivity {
                                     String serverPw = response.getString("password");
 
                                     if (email.equals(serverId) && password.equals(serverPw)) {
+                                        // ✅ 로그인 성공 시 MainActivity로 이동
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
-                                        finish();
+                                        finish(); // 뒤로가기 방지용
                                     } else {
                                         Toast.makeText(LoginActivity.this, "아이디 또는 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
                                     }
@@ -88,12 +94,12 @@ public class LoginActivity extends AppCompatActivity {
                         }
                 );
 
-
+                // 요청 추가
                 queue.add(request);
             }
         });
 
-        // 회원가입 화면 이동
+        // 회원가입 버튼 클릭 시 RegisterActivity 이동
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,19 +108,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // 아이디/비밀번호 찾기 안내
+        // 아이디/비밀번호 찾기 안내 (미구현 안내)
         findInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(LoginActivity.this, "아이디/비밀번호 찾기 기능은 추후 구현 예정입니다.", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
+
+    // 이메일 유효성 검사 함수
     private boolean isValidEmail(String email) {
-        // 이메일 유효성 검사 정규표현식
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return email.matches(emailRegex);
     }
-
 }
