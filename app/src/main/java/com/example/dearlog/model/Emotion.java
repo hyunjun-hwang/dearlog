@@ -1,25 +1,19 @@
 package com.example.dearlog.model;
 
+import android.graphics.Color;
+
 public class Emotion {
-    private String code;
-    private String name;
-    private String color;
+    public static final String YELLOW = "Y";
+    public static final String BLUE = "B";
+    public static final String RED = "R";
 
-    public Emotion(String code, String name, String color) {
-        this.code = code;
-        this.name = name;
-        this.color = color;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getColor() {
-        return color;
+    public static int getColor(String code) {
+        switch (code) {
+            case YELLOW: return Color.parseColor("#FDD835"); // 노란색
+            case BLUE: return Color.parseColor("#42A5F5");   // 파랑
+            case RED: return Color.parseColor("#EF5350");    // 빨강
+            default: return Color.GRAY;                      // 예외 처리
+        }
     }
 }
+

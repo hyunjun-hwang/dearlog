@@ -60,20 +60,14 @@
         android:gravity="center_horizontal"
         android:layout_marginBottom="8dp">
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_add"
-            android:elevation="5dp"
-            android:background="@drawable/rounded_circle"
-            android:contentDescription="감정 추가" />
-
+        <!-- 감정 색상 동그라미 (클릭 트리거) -->
         <View
             android:id="@+id/color_circle"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/color_circle_yellow" />
+            android:background="@drawable/color_circle_yellow"
+            android:contentDescription="감정 선택 버튼" />
     </LinearLayout>
 
     <!-- 선택된 감정 출력 -->
@@ -81,13 +75,12 @@
         android:id="@+id/tvSelectedEmotion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="😐 감정을 선택하세요"
+        android:text="감정을 선택해주세요"
         android:textSize="16sp"
         android:textColor="?android:textColorPrimary"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="12dp"/>
-
 
     <!-- 날짜 -->
     <TextView

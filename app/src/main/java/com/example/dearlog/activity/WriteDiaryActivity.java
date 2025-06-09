@@ -40,7 +40,7 @@ public class WriteDiaryActivity extends AppCompatActivity {
     private ImageButton btnBack, btnMenu;
     private Button btnFinish;
 
-    private Emotion selectedEmotion; // 감정 선택 결과
+    private String selectedEmotionColorHex = null; // 선택한 감정 색상 코드
     private int questionId = -1;     // 질문 ID 저장
 
     @Override
@@ -81,27 +81,30 @@ public class WriteDiaryActivity extends AppCompatActivity {
         // 질문 불러오기
         loadTodayQuestion();
 
-        // 감정 선택 다이얼로그
-        emotionSelector.setOnClickListener(v -> {
-            SelectEmotionDialog dialog = new SelectEmotionDialog(this);
-            dialog.setOnEmotionSelectedListener(emotion -> {
-                selectedEmotion = emotion;
+        // [변경 후]
+        View colorCircle = findViewById(R.id.color_circle);
 
-                View colorCircle = findViewById(R.id.color_circle);
+        colorCircle.setOnClickListener(v -> {
+            SelectEmotionDialog dialog = new SelectEmotionDialog(this);
+            dialog.setOnEmotionSelectedListener(colorHex -> {
+                selectedEmotionColorHex = colorHex;
+
                 if (colorCircle != null) {
                     try {
-                        colorCircle.setBackgroundColor(Color.parseColor(emotion.getColor()));
+                        colorCircle.setBackgroundColor(Color.parseColor(colorHex));
                     } catch (IllegalArgumentException e) {
                         colorCircle.setBackgroundColor(Color.LTGRAY);
                     }
                 }
 
                 if (tvSelectedEmotion != null) {
-                    tvSelectedEmotion.setText(emotion.getEmoji() + " " + emotion.getName());
+                    tvSelectedEmotion.setText("감정이 선택되었습니다");
                 }
             });
             dialog.show();
         });
+
+
 
         // 뒤로가기
         btnBack.setOnClickListener(v -> finish());
@@ -147,7 +150,7 @@ public class WriteDiaryActivity extends AppCompatActivity {
         String content = etDiaryContent.getText().toString().trim();
         String date = tvDate.getText().toString().replace(" 작성일", "");
         String title = tvDiaryTitle.getText().toString().replace("📒 ", "");
-        String emotionCode = (selectedEmotion != null) ? selectedEmotion.getCode() : "NONE";
+        String emotionCode = (selectedEmotionColorHex != null) ? selectedEmotionColorHex : "NONE";
         String userId = "test_user"; // 추후 SharedPreferences로 대체
 
         if (content.isEmpty()) {
