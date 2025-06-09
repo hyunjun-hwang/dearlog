@@ -60,6 +60,7 @@
         android:gravity="center_horizontal"
         android:layout_marginBottom="8dp">
 
+
         <!-- 감정 색상 동그라미 (클릭 트리거) -->
         <View
             android:id="@+id/color_circle"
