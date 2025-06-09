@@ -13,53 +13,32 @@ import com.example.dearlog.R;
 import com.example.dearlog.util.ThemeUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class CalendarActivity extends AppCompatActivity {
+public class DiaryActivity extends AppCompatActivity {
     private BottomNavigationView bottomNav;
     private ImageButton darkModeBtn;
     private ImageButton settingsBtn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.calendar);
+        setContentView(R.layout.activity_design);
         bottomNav = findViewById(R.id.bottom_navigation);
-        darkModeBtn = findViewById(R.id.btn_dark_mode);
-        settingsBtn = findViewById(R.id.btn_settings);
-
-        // 날짜 TextView(1~31) 클릭 시 DiaryDetailActivity로 이동
-        for (int day = 1; day <= 31; day++) {
-            String viewId = "calendar_day_" + day;
-            int resId = getResources().getIdentifier(viewId, "id", getPackageName());
-
-            View view = findViewById(resId);
-            if (view instanceof TextView) {
-                view.setOnClickListener(v -> {
-                    String selectedDay = ((TextView) v).getText().toString();
-                    String formattedDate = "2025-06-" + String.format("%02d", Integer.parseInt(selectedDay)); // 예시용
-                    Intent intent = new Intent(CalendarActivity.this, DiaryDetailActivity.class);
-                    intent.putExtra("date", formattedDate);
-                    startActivity(intent);
-                });
-            } else if (resId == 0) {
-                // 누락된 ID가 있을 경우 경고
-                Toast.makeText(this, "calendar.xml에 ID 누락: " + viewId, Toast.LENGTH_SHORT).show();
-            }
-        }
+        darkModeBtn = findViewById(R.id.dark_mode_button);
+        settingsBtn = findViewById(R.id.settings_button);
 
         // 다크모드 전환
         darkModeBtn.setOnClickListener(v -> {
-            String current = ThemeUtil.loadMode(CalendarActivity.this);
+            String current = ThemeUtil.loadMode(DiaryActivity.this);
             if (ThemeUtil.DARK_MODE.equals(current)) {
-                ThemeUtil.applyTheme(CalendarActivity.this, ThemeUtil.LIGHT_MODE);
+                ThemeUtil.applyTheme(DiaryActivity.this, ThemeUtil.LIGHT_MODE);
             } else {
-                ThemeUtil.applyTheme(CalendarActivity.this, ThemeUtil.DARK_MODE);
+                ThemeUtil.applyTheme(DiaryActivity.this, ThemeUtil.DARK_MODE);
             }
             recreate();
         });
 
         // 설정화면 이동
         settingsBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(CalendarActivity.this, SettingsActivity.class);
+            Intent intent = new Intent(DiaryActivity.this, SettingsActivity.class);
             startActivity(intent);
         });
 
@@ -78,13 +57,11 @@ public class CalendarActivity extends AppCompatActivity {
                 startActivity(new Intent(this, EmotionSummaryActivity.class));
                 return true;
             } else if (itemId == R.id.nav_calendar) {
-                startActivity(new Intent(this, CalendarActivity.class));
+                startActivity(new Intent(this, DiaryActivity.class));
                 return true;
             }
 
             return false;
         });
-
-
     }
 }

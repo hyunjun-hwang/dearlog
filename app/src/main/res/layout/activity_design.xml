@@ -44,19 +44,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 팔레트 동그라미 버튼 (오른쪽 아래) -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/palette_button"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_palette"
-        android:scaleType="centerInside"
-        app:maxImageSize="32dp"
-        app:tint="@android:color/black"
-        app:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- 하단 네비게이션 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

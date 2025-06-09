@@ -1,5 +1,6 @@
 package com.example.dearlog.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -104,14 +105,13 @@ public class MainActivity extends AppCompatActivity {
                 recreate(); // 홈 새로고침
                 return true;
             } else if (itemId == R.id.nav_book) {
-                Toast.makeText(this, "디자인 기능은 아직 미구현입니다", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, DiaryActivity.class));
                 return true;
             } else if (itemId == R.id.nav_emotion) {
                 startActivity(new Intent(this, EmotionSummaryActivity.class));
                 return true;
             } else if (itemId == R.id.nav_calendar) {
-                Intent intent = new Intent(this, CalendarActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, CalendarActivity.class));
                 return true;
             }
 

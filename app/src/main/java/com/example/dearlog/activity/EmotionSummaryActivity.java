@@ -113,16 +113,17 @@ public class EmotionSummaryActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
             } else if (itemId == R.id.nav_book) {
-                Toast.makeText(this, "디자인 기능은 아직 미구현입니다", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, DiaryActivity.class));
                 return true;
             } else if (itemId == R.id.nav_emotion) {
                 recreate(); // 현재 페이지 새로고침
                 return true;
             } else if (itemId == R.id.nav_calendar) {
-                Toast.makeText(this, "캘린더 기능은 아직 미구현입니다", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, CalendarActivity.class));
                 return true;
             }
             return false;
         });
     }
+
 }
