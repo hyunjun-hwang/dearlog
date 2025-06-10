@@ -30,7 +30,7 @@ public class CalendarActivity extends AppCompatActivity {
     private CalendarView calendarView;
     private ImageButton darkModeBtn, settingsBtn;
     private BottomNavigationView bottomNav;
-    private int diaryId = -1;
+    private int diaryId = 1;
     private RequestQueue queue;
 
     @Override

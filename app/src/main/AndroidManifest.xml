@@ -35,6 +35,7 @@
         <activity android:name=".activity.EmotionSummaryActivity" />
         <activity android:name=".activity.CalendarActivity" />
         <activity android:name=".activity.DiaryActivity" />
+        <activity android:name=".activity.DiaryListActivity" />
     </application>
 
 </manifest>

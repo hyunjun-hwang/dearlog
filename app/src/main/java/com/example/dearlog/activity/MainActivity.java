@@ -9,11 +9,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.dearlog.R;
 import com.example.dearlog.dialog.ConnectFriendDialog;
 import com.example.dearlog.dialog.CreateDiaryDialog;
 import com.example.dearlog.util.ThemeUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView connectText;
     private TextView exclamationIcon;
     private boolean isFriendConnected = false;
+    private boolean isDiaryCreated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +47,15 @@ public class MainActivity extends AppCompatActivity {
         String friendId = prefs.getString("friend_id", null);
         isFriendConnected = (friendId != null);
 
-        if (isFriendConnected) {
-            connectText.setText("교환일기를\n만들어주세요!");
-            exclamationIcon.setText("?");
-        }
+        checkDiaryExists();
 
         connectText.setOnClickListener(v -> {
             if (!isFriendConnected) {
                 showFriendConnectDialog();
-            } else {
+            } else if (!isDiaryCreated) {
                 showCreateDiaryDialog();
+            } else {
+                Toast.makeText(this, "이미 교환일기가 생성되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -67,8 +73,41 @@ public class MainActivity extends AppCompatActivity {
         setupBottomNavigation();
     }
 
+    private void checkDiaryExists() {
+        SharedPreferences prefs = getSharedPreferences("DearlogPrefs", MODE_PRIVATE);
+        String userId = prefs.getString("user_id", null);
+
+        if (userId == null) return;
+
+        String url = "http://10.0.2.2:8080/checkDiaryExists.jsp?user_id=" + userId;
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        JSONObject json = new JSONObject(response);
+                        boolean exists = json.getBoolean("exists");
+
+                        if (exists) {
+                            connectText.setText("교환일기가\n만들어졌어요!");
+                            exclamationIcon.setText("!?");
+                            isDiaryCreated = true;
+                        } else if (isFriendConnected) {
+                            connectText.setText("교환일기를\n만들어주세요!");
+                            exclamationIcon.setText("?");
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(this, "서버 응답 오류", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(this, "서버 요청 실패", Toast.LENGTH_SHORT).show()
+        );
+
+        queue.add(request);
+    }
+
     public void onFriendConnected() {
-        connectText.setText("\uAD50\uD1B5\uC77C\uAE30\uB97C\n\uB9CC\uB4E4\uC5B4\uC8FC\uC138\uC694!");
+        connectText.setText("교환일기를\n만들어주세요!");
         exclamationIcon.setText("?");
         isFriendConnected = true;
         showCreateDiaryDialog();
@@ -85,8 +124,15 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("title", title);
             intent.putExtra("color", colorHex);
             startActivity(intent);
+            onDiaryCreated();
         });
         diaryDialog.show();
+    }
+
+    public void onDiaryCreated() {
+        connectText.setText("교환일기가\n만들어졌어요!");
+        exclamationIcon.setText("!?");
+        isDiaryCreated = true;
     }
 
     private void setupBottomNavigation() {

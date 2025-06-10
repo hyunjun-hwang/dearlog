@@ -1,6 +1,7 @@
 package com.example.dearlog.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -57,7 +58,7 @@ public class DiaryListActivity extends AppCompatActivity {
             Toast.makeText(this, "불러올 일기가 없습니다.", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        Log.d("DiaryListActivity", "받은 entryIds: " + entryIds.toString());
         // 서버에서 entry 데이터 불러오기
         for (int entryId : entryIds) {
             String entryUrl = "http://10.0.2.2:8080/getEntryById.jsp?entry_id=" + entryId;
