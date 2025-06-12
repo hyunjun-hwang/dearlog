@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.*;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -20,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText emailInput, passwordInput;
     private Button loginButton, signupButton;
-    private TextView findInfo;
+    private TextView findIdText, findPwText;
     private RequestQueue queue;
 
     @Override
@@ -33,7 +32,9 @@ public class LoginActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.password_input);
         loginButton = findViewById(R.id.login_button);
         signupButton = findViewById(R.id.signup_button);
-        findInfo = findViewById(R.id.find_info);
+        findIdText = findViewById(R.id.find_id_text);
+        findPwText = findViewById(R.id.find_pw_text);
+
         queue = Volley.newRequestQueue(this);
 
         // 로그인 버튼 클릭
@@ -95,9 +96,16 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // 아이디/비밀번호 찾기 (미구현 안내)
-        findInfo.setOnClickListener(v -> {
-            Toast.makeText(LoginActivity.this, "아이디/비밀번호 찾기 기능은 추후 구현 예정입니다.", Toast.LENGTH_SHORT).show();
+        // 아이디 찾기 클릭
+        findIdText.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, FindIdActivity.class);
+            startActivity(intent);
+        });
+
+        // 비밀번호 찾기 클릭
+        findPwText.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, FindPasswordActivity.class);
+            startActivity(intent);
         });
     }
 

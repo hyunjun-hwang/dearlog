@@ -36,6 +36,8 @@
         <activity android:name=".activity.CalendarActivity" />
         <activity android:name=".activity.DiaryActivity" />
         <activity android:name=".activity.DiaryListActivity" />
+        <activity android:name=".activity.FindIdActivity" />
+        <activity android:name=".activity.FindPasswordActivity" />
     </application>
 
 </manifest>
