@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class ValidateRequest extends StringRequest {
 
-    private static final String URL = "http://yourserver.com/Validate.jsp";
+    private static final String URL = "http://10.0.2.2:8080/Validate.jsp";
 
     private final Map<String, String> params;
 

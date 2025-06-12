@@ -12,17 +12,16 @@ import java.util.Map;
  */
 public class RegisterRequest extends StringRequest {
 
-    private static final String URL = "http://yourserver.com/Register.jsp";
-
+    private static final String URL = "http://10.0.2.2:8080/register.jsp";
     private final Map<String, String> params;
 
     public RegisterRequest(String email, String password, String nickname, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         params = new HashMap<>();
-        params.put("userEmail", email);
-        params.put("userPassword", password);
-        params.put("userNickname", nickname);
+        params.put("user_id", email);
+        params.put("password", password);
+        params.put("nickname", nickname);
     }
 
     @Override
