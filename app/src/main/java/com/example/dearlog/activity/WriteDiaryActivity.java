@@ -21,7 +21,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dearlog.R;
 import com.example.dearlog.dialog.SelectEmotionDialog;
-import com.example.dearlog.model.Emotion;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,8 +39,8 @@ public class WriteDiaryActivity extends AppCompatActivity {
     private ImageButton btnBack, btnMenu;
     private Button btnFinish;
 
-    private String selectedEmotionColorHex = null; // 선택한 감정 색상 코드
-    private int questionId = -1;     // 질문 ID 저장
+    private String selectedEmotionColorHex = null; // 감정 선택 시 색상 저장
+    private int questionId = -1;                   // 질문 ID 저장
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,30 +80,25 @@ public class WriteDiaryActivity extends AppCompatActivity {
         // 질문 불러오기
         loadTodayQuestion();
 
-        // [변경 후]
+        // 감정 선택 다이얼로그 연결 (color_circle 클릭 시)
         View colorCircle = findViewById(R.id.color_circle);
-
         colorCircle.setOnClickListener(v -> {
             SelectEmotionDialog dialog = new SelectEmotionDialog(this);
             dialog.setOnEmotionSelectedListener(colorHex -> {
                 selectedEmotionColorHex = colorHex;
 
-                if (colorCircle != null) {
-                    try {
-                        colorCircle.setBackgroundColor(Color.parseColor(colorHex));
-                    } catch (IllegalArgumentException e) {
-                        colorCircle.setBackgroundColor(Color.LTGRAY);
-                    }
+                // 색상 적용
+                try {
+                    colorCircle.setBackgroundColor(Color.parseColor(colorHex));
+                } catch (IllegalArgumentException e) {
+                    colorCircle.setBackgroundColor(Color.LTGRAY);
                 }
 
-                if (tvSelectedEmotion != null) {
-                    tvSelectedEmotion.setText("감정이 선택되었습니다");
-                }
+                // 안내 텍스트
+                tvSelectedEmotion.setText("감정이 선택되었습니다");
             });
             dialog.show();
         });
-
-
 
         // 뒤로가기
         btnBack.setOnClickListener(v -> finish());
@@ -114,7 +108,7 @@ public class WriteDiaryActivity extends AppCompatActivity {
             Toast.makeText(this, "메뉴 기능은 추후 구현 예정입니다", Toast.LENGTH_SHORT).show();
         });
 
-        // 작성 완료
+        // 작성 완료 → 저장 여부 확인
         btnFinish.setOnClickListener(v -> {
             new AlertDialog.Builder(this)
                     .setTitle("일기 저장")
@@ -126,7 +120,7 @@ public class WriteDiaryActivity extends AppCompatActivity {
     }
 
     private void loadTodayQuestion() {
-        String url = "http://10.0.2.2:8080/DearlogServer/getQuestion.jsp"; // 개발환경 주소
+        String url = "http://10.0.2.2:8080/DearlogServer/getQuestion.jsp";
 
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
