@@ -69,12 +69,13 @@ public class DiaryListActivity extends AppCompatActivity {
                             try {
                                 for (int i = 0; i < response.length(); i++) {
                                     JSONObject entry = response.getJSONObject(i);
+                                    int id = entry.getInt("entry_id");
                                     String date = entry.getString("date");
                                     String question = entry.getString("question");
                                     String writer = entry.getString("writer");
                                     String color = entry.getString("color");
 
-                                    diaryList.add(new DiaryItem(date, question, writer, color));
+                                    diaryList.add(new DiaryItem(id, date, question, writer, color));
                                 }
                                 adapter.notifyDataSetChanged();
                             } catch (JSONException e) {
@@ -108,12 +109,13 @@ public class DiaryListActivity extends AppCompatActivity {
                             diaryList.clear();
                             for (int i = 0; i < entries.length(); i++) {
                                 JSONObject obj = entries.getJSONObject(i);
+                                int entryId = obj.getInt("entry_id");
                                 String date = obj.getString("written_at");
                                 String question = obj.optString("question_text", "오늘의 질문");
                                 String writer = obj.optString("writer", "작성자");
                                 String color = obj.getString("emotion_code");
 
-                                diaryList.add(new DiaryItem(date, question, writer, color));
+                                diaryList.add(new DiaryItem(entryId, date, question, writer, color));
                             }
                             adapter.notifyDataSetChanged();
                         } else {
