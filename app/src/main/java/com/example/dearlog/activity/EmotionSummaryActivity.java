@@ -1,129 +1,111 @@
 package com.example.dearlog.activity;
 
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.dearlog.R;
-import com.example.dearlog.util.ThemeUtil;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class EmotionSummaryActivity extends AppCompatActivity {
 
     private TextView tvMainTitle;
-    private ImageButton btnDarkMode, btnSettings;
-    private LinearLayout btnEmotionSummary, emotionFilterMenu;
+    private LinearLayout btnEmotionSummary;
     private TextView menuMyEmotions, menuFriendsEmotions;
-    private GridLayout colorGrid;
-    private BottomNavigationView bottomNavigation;
+
+    private RequestQueue requestQueue;
+
+    // 실제 프로젝트에서는 로그인 후 받아온 user_id로 대체
+    private static final String USER_ID = "2020081031";
+    private static final String SERVER_URL = "http://192.168.0.101:8080/dearlog/getEmotionStats.jsp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeUtil.applyTheme(this, ThemeUtil.loadMode(this));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emotion_summary);
 
-        // View 연결
         tvMainTitle = findViewById(R.id.tv_main_title);
-        btnDarkMode = findViewById(R.id.btn_dark_mode);
-        btnSettings = findViewById(R.id.btn_settings);
         btnEmotionSummary = findViewById(R.id.btn_emotion_summary);
-        colorGrid = findViewById(R.id.color_grid);
-        bottomNavigation = findViewById(R.id.bottom_navigation);
-
-        // 감정 필터 메뉴 관련
-        emotionFilterMenu = findViewById(R.id.emotion_filter_menu);
         menuMyEmotions = findViewById(R.id.menu_my_emotions);
         menuFriendsEmotions = findViewById(R.id.menu_friends_emotions);
 
-        // 다크모드 토글
-        btnDarkMode.setOnClickListener(v -> {
-            String current = ThemeUtil.loadMode(this);
-            if (ThemeUtil.DARK_MODE.equals(current)) {
-                ThemeUtil.applyTheme(this, ThemeUtil.LIGHT_MODE);
-            } else {
-                ThemeUtil.applyTheme(this, ThemeUtil.DARK_MODE);
-            }
-            recreate(); // 테마 적용
-        });
+        requestQueue = Volley.newRequestQueue(this);
 
-        // 설정 이동
-        btnSettings.setOnClickListener(v -> {
-            startActivity(new Intent(this, SettingsActivity.class));
-        });
+        // 감정 통계 불러오기
+        loadEmotionStats();
 
-        // 감정별 모아보기 버튼 클릭 시 메뉴 토글
+        // 감정 모아보기 토글
         btnEmotionSummary.setOnClickListener(v -> {
-            if (emotionFilterMenu.getVisibility() == View.VISIBLE) {
-                emotionFilterMenu.setVisibility(View.GONE);
-            } else {
-                emotionFilterMenu.setVisibility(View.VISIBLE);
-            }
+            boolean visible = menuMyEmotions.getVisibility() == View.VISIBLE;
+            menuMyEmotions.setVisibility(visible ? View.GONE : View.VISIBLE);
+            menuFriendsEmotions.setVisibility(visible ? View.GONE : View.VISIBLE);
         });
 
-        // 메뉴 항목 클릭 처리
+        // 필터 메뉴 클릭 처리 (기능 확장 예정)
         menuMyEmotions.setOnClickListener(v -> {
-            emotionFilterMenu.setVisibility(View.GONE);
             Toast.makeText(this, "나의 감정만 보기", Toast.LENGTH_SHORT).show();
-            // TODO: 필터링 로직 구현
         });
 
         menuFriendsEmotions.setOnClickListener(v -> {
-            emotionFilterMenu.setVisibility(View.GONE);
             Toast.makeText(this, "친구 감정 보기", Toast.LENGTH_SHORT).show();
-            // TODO: 필터링 로직 구현
-        });
-
-        setupColorGridClickListeners();
-        setupBottomNavigation();
-
-    }
-
-    private void setupColorGridClickListeners() {
-        for (int i = 0; i < colorGrid.getChildCount(); i++) {
-            View colorCircle = colorGrid.getChildAt(i);
-            colorCircle.setOnClickListener(v -> {
-                String selectedColor = getColorHexFromView(v);
-                Toast.makeText(this, "감정 색상 선택: " + selectedColor, Toast.LENGTH_SHORT).show();
-                // 선택된 감정 색상만 표시, 화면 이동 없음
-            });
-        }
-    }
-
-    private String getColorHexFromView(View view) {
-        if (view.getBackground() instanceof ColorDrawable) {
-            int color = ((ColorDrawable) view.getBackground()).getColor();
-            return String.format("#%06X", (0xFFFFFF & color));
-        }
-        return "#FFFFFF";
-    }
-
-    private void setupBottomNavigation() {
-        bottomNavigation.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_home) {
-                startActivity(new Intent(this, MainActivity.class));
-                return true;
-            } else if (itemId == R.id.nav_book) {
-                startActivity(new Intent(this, DiaryActivity.class));
-                return true;
-            } else if (itemId == R.id.nav_emotion) {
-                recreate(); // 현재 페이지 새로고침
-                return true;
-            } else if (itemId == R.id.nav_calendar) {
-                startActivity(new Intent(this, CalendarActivity.class));
-                return true;
-            }
-            return false;
         });
     }
 
+    private void loadEmotionStats() {
+        String url = SERVER_URL + "?user_id=" + USER_ID;
+
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response -> {
+                    HashMap<String, Integer> stats = new HashMap<>();
+                    String mostEmotion = null;
+                    int maxCount = -1;
+
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            JSONObject obj = response.getJSONObject(i);
+                            String emotionCode = obj.getString("emotion_code");
+                            int count = obj.getInt("count");
+
+                            stats.put(emotionCode, count);
+
+                            if (count > maxCount) {
+                                maxCount = count;
+                                mostEmotion = emotionCode;
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (mostEmotion != null) {
+                        tvMainTitle.setText("이번달은 '" + mostEmotion + "' 감정이\n제일 많아요");
+                    } else {
+                        tvMainTitle.setText("이번달 감정 데이터를 찾을 수 없어요.");
+                    }
+                },
+                error -> {
+                    Log.e("EmotionStats", "서버 요청 실패: " + error.toString());
+                    Toast.makeText(this, "감정 통계를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                });
+
+        requestQueue.add(request);
+    }
 }
