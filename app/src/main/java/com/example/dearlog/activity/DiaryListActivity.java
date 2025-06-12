@@ -59,7 +59,7 @@ public class DiaryListActivity extends AppCompatActivity {
             Log.d("DiaryListActivity", "받은 entryIds: " + entryIds.toString());
 
             for (int entryId : entryIds) {
-                String entryUrl = "http://10.0.2.2:8080/getEntryById.jsp?entry_id=" + entryId;
+                String entryUrl = "http://10.0.2.2:8080/DearlogServer/getEntryById.jsp?entry_id=" + entryId;
 
                 JsonArrayRequest entryRequest = new JsonArrayRequest(
                         Request.Method.GET,

@@ -50,7 +50,8 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, DiaryDetailActivity.class);
-            intent.putExtra("date", item.getDate());
+            intent.putExtra("entry_id", item.getId());            // 서버 조회용
+            intent.putExtra("date", item.getDate());              // 백업 표시용
             intent.putExtra("question", item.getQuestion());
             intent.putExtra("writer", item.getWriter());
             intent.putExtra("color", item.getColor());
