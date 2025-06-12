@@ -46,8 +46,8 @@
     <!-- 느낌표 아이콘 -->
     <TextView
         android:id="@+id/exclamation_icon"
-        android:layout_width="60dp"
-        android:layout_height="180dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="!"
         android:textColor="?android:textColorPrimary"
         android:textSize="150sp"

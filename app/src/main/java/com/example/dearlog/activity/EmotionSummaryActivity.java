@@ -1,9 +1,10 @@
 package com.example.dearlog.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dearlog.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,12 +30,11 @@ public class EmotionSummaryActivity extends AppCompatActivity {
     private TextView tvMainTitle;
     private LinearLayout btnEmotionSummary;
     private TextView menuMyEmotions, menuFriendsEmotions;
+    private BottomNavigationView bottomNav;
 
     private RequestQueue requestQueue;
 
-    // 실제 프로젝트에서는 로그인 후 받아온 user_id로 대체
-    private static final String USER_ID = "2020081031";
-    private static final String SERVER_URL = "http://192.168.0.101:8080/dearlog/getEmotionStats.jsp";
+    private static final String SERVER_URL = "http://10.0.2.2:8080/dearlog/getEmotionStats.jsp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,22 @@ public class EmotionSummaryActivity extends AppCompatActivity {
         btnEmotionSummary = findViewById(R.id.btn_emotion_summary);
         menuMyEmotions = findViewById(R.id.menu_my_emotions);
         menuFriendsEmotions = findViewById(R.id.menu_friends_emotions);
+        bottomNav = findViewById(R.id.bottom_navigation);
 
         requestQueue = Volley.newRequestQueue(this);
 
+        // SharedPreferences에서 user_id 가져오기
+        SharedPreferences prefs = getSharedPreferences("DearlogPrefs", MODE_PRIVATE);
+        String userId = prefs.getString("user_id", null);
+
+        if (userId == null) {
+            Toast.makeText(this, "로그인 정보가 없습니다.", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
         // 감정 통계 불러오기
-        loadEmotionStats();
+        loadEmotionStats(userId);
 
         // 감정 모아보기 토글
         btnEmotionSummary.setOnClickListener(v -> {
@@ -57,7 +69,6 @@ public class EmotionSummaryActivity extends AppCompatActivity {
             menuFriendsEmotions.setVisibility(visible ? View.GONE : View.VISIBLE);
         });
 
-        // 필터 메뉴 클릭 처리 (기능 확장 예정)
         menuMyEmotions.setOnClickListener(v -> {
             Toast.makeText(this, "나의 감정만 보기", Toast.LENGTH_SHORT).show();
         });
@@ -65,10 +76,12 @@ public class EmotionSummaryActivity extends AppCompatActivity {
         menuFriendsEmotions.setOnClickListener(v -> {
             Toast.makeText(this, "친구 감정 보기", Toast.LENGTH_SHORT).show();
         });
+
+        setupBottomNavigation();
     }
 
-    private void loadEmotionStats() {
-        String url = SERVER_URL + "?user_id=" + USER_ID;
+    private void loadEmotionStats(String userId) {
+        String url = SERVER_URL + "?user_id=" + userId;
 
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET, url, null,
@@ -107,5 +120,25 @@ public class EmotionSummaryActivity extends AppCompatActivity {
                 });
 
         requestQueue.add(request);
+    }
+
+    private void setupBottomNavigation() {
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_book) {
+                startActivity(new Intent(this, DiaryActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_emotion) {
+                recreate(); // 자기 자신 갱신
+                return true;
+            } else if (itemId == R.id.nav_calendar) {
+                startActivity(new Intent(this, CalendarActivity.class));
+                return true;
+            }
+            return false;
+        });
     }
 }
