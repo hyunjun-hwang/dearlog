@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +30,6 @@ public class EmotionSummaryActivity extends AppCompatActivity {
     private LinearLayout btnEmotionSummary;
     private TextView menuMyEmotions, menuFriendsEmotions;
     private BottomNavigationView bottomNav;
-
     private RequestQueue requestQueue;
 
     private static final String SERVER_URL = "http://10.0.2.2:8080/dearlog/getEmotionStats.jsp";
@@ -41,6 +39,7 @@ public class EmotionSummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emotion_summary);
 
+        // 1. View 연결
         tvMainTitle = findViewById(R.id.tv_main_title);
         btnEmotionSummary = findViewById(R.id.btn_emotion_summary);
         menuMyEmotions = findViewById(R.id.menu_my_emotions);
@@ -49,7 +48,7 @@ public class EmotionSummaryActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        // SharedPreferences에서 user_id 가져오기
+        // 2. SharedPreferences에서 user_id 가져오기
         SharedPreferences prefs = getSharedPreferences("DearlogPrefs", MODE_PRIVATE);
         String userId = prefs.getString("user_id", null);
 
@@ -59,24 +58,25 @@ public class EmotionSummaryActivity extends AppCompatActivity {
             return;
         }
 
-        // 감정 통계 불러오기
+        // 3. 감정 통계 불러오기
         loadEmotionStats(userId);
 
-        // 감정 모아보기 토글
+        // 4. 감정 모아보기 토글
         btnEmotionSummary.setOnClickListener(v -> {
             boolean visible = menuMyEmotions.getVisibility() == View.VISIBLE;
             menuMyEmotions.setVisibility(visible ? View.GONE : View.VISIBLE);
             menuFriendsEmotions.setVisibility(visible ? View.GONE : View.VISIBLE);
         });
 
-        menuMyEmotions.setOnClickListener(v -> {
-            Toast.makeText(this, "나의 감정만 보기", Toast.LENGTH_SHORT).show();
-        });
+        menuMyEmotions.setOnClickListener(v ->
+                Toast.makeText(this, "나의 감정만 보기", Toast.LENGTH_SHORT).show()
+        );
 
-        menuFriendsEmotions.setOnClickListener(v -> {
-            Toast.makeText(this, "친구 감정 보기", Toast.LENGTH_SHORT).show();
-        });
+        menuFriendsEmotions.setOnClickListener(v ->
+                Toast.makeText(this, "친구 감정 보기", Toast.LENGTH_SHORT).show()
+        );
 
+        // 5. 바텀 네비게이션 설정
         setupBottomNavigation();
     }
 
@@ -86,7 +86,6 @@ public class EmotionSummaryActivity extends AppCompatActivity {
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET, url, null,
                 response -> {
-                    HashMap<String, Integer> stats = new HashMap<>();
                     String mostEmotion = null;
                     int maxCount = -1;
 
@@ -95,8 +94,6 @@ public class EmotionSummaryActivity extends AppCompatActivity {
                             JSONObject obj = response.getJSONObject(i);
                             String emotionCode = obj.getString("emotion_code");
                             int count = obj.getInt("count");
-
-                            stats.put(emotionCode, count);
 
                             if (count > maxCount) {
                                 maxCount = count;
@@ -125,6 +122,7 @@ public class EmotionSummaryActivity extends AppCompatActivity {
     private void setupBottomNavigation() {
         bottomNav.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
+
             if (itemId == R.id.nav_home) {
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
@@ -132,7 +130,7 @@ public class EmotionSummaryActivity extends AppCompatActivity {
                 startActivity(new Intent(this, DiaryActivity.class));
                 return true;
             } else if (itemId == R.id.nav_emotion) {
-                recreate(); // 자기 자신 갱신
+                recreate(); // 현재 화면 새로고침
                 return true;
             } else if (itemId == R.id.nav_calendar) {
                 startActivity(new Intent(this, CalendarActivity.class));
