@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,16 @@ public class DiaryActivity extends AppCompatActivity {
             recreate();
         });
 
+        // 일기목록 전환
+        ImageView diaryIcon = findViewById(R.id.diary_icon);
+        diaryIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DiaryActivity.this, DiaryListActivity.class);
+                startActivity(intent);
+            }
+        });
+        
         // 설정화면 이동
         settingsBtn.setOnClickListener(v -> {
             Intent intent = new Intent(DiaryActivity.this, SettingsActivity.class);
